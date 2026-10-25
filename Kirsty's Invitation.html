@@ -1,0 +1,853 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Venez Visiter La Maison— RSVP</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Italiana&display=swap" rel="stylesheet">
+
+<style>
+/* =====================================================
+   MAISON DE L'AMOUR
+   An unnecessarily luxurious RSVP experience.
+   ===================================================== */
+
+:root {
+  --ivory: #f8f4ec;
+  --paper: #fffdf8;
+  --wine: #571d2b;
+  --wine-dark: #321019;
+  --gold: #b99a61;
+  --gold-light: #dfcba1;
+  --ink: #29221f;
+  --muted: #82766b;
+  --line: rgba(125, 94, 60, .25);
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --display: "Italiana", Georgia, serif;
+  --sans: "DM Sans", sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+}
+
+/* Fine-grain luxury paper effect */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 100;
+  opacity: .15;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.13'/%3E%3C/svg%3E");
+}
+
+::selection {
+  background: var(--wine);
+  color: var(--ivory);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* ---------- Navigation ---------- */
+
+.navbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 30px 7%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 5;
+}
+
+.brand {
+  font-family: var(--display);
+  font-size: 1.45rem;
+  letter-spacing: .13em;
+}
+
+.nav-caption {
+  font-size: .65rem;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+/* ---------- Hero ---------- */
+
+.hero {
+  min-height: 740px;
+  height: 100svh;
+  max-height: 1050px;
+  position: relative;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  color: white;
+  overflow: hidden;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(24, 13, 12, .40) 0%,
+      rgba(24, 13, 12, .12) 36%,
+      rgba(24, 13, 12, .78) 100%
+    ),
+    url("https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=2200&q=90")
+    center 55% / cover no-repeat;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border: 1px solid rgba(223, 203, 161, .65);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 30px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 100px 24px 40px;
+  animation: reveal 1.5s var(--ease) both;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: .42em;
+  font-size: .68rem;
+  line-height: 2;
+  color: var(--gold-light);
+}
+
+.hero h1 {
+  font-family: var(--display);
+  font-size: clamp(4rem, 10vw, 9rem);
+  font-weight: 400;
+  line-height: .95;
+  letter-spacing: -.035em;
+  margin: 36px 0 26px;
+  text-shadow: 0 4px 40px rgba(0,0,0,.2);
+}
+
+.hero h1 span {
+  display: block;
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: .62em;
+  letter-spacing: .02em;
+  margin-top: 12px;
+}
+
+.hero-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin: 35px auto;
+  color: var(--gold-light);
+}
+
+.hero-divider::before,
+.hero-divider::after {
+  content: "";
+  width: 65px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-date {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  letter-spacing: .16em;
+}
+
+.hero-location {
+  margin-top: 14px;
+  font-size: .66rem;
+  text-transform: uppercase;
+  letter-spacing: .3em;
+  opacity: .8;
+}
+
+.scroll-cue {
+  position: absolute;
+  z-index: 3;
+  bottom: 46px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: .6rem;
+  text-transform: uppercase;
+  letter-spacing: .28em;
+  color: var(--gold-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.scroll-cue::after {
+  content: "";
+  height: 35px;
+  width: 1px;
+  background: var(--gold);
+  animation: pulse 2s infinite;
+}
+
+/* ---------- Shared layout ---------- */
+
+.section {
+  padding: 120px 7%;
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 65px;
+}
+
+.kicker {
+  font-size: .62rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 600;
+}
+
+.section-heading h2 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 400;
+  margin: 22px 0;
+  line-height: 1;
+}
+
+.section-heading p {
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: .9rem;
+  max-width: 510px;
+  margin: 0 auto;
+}
+
+/* ---------- Event details ---------- */
+
+.details {
+  background: var(--paper);
+}
+
+.details-grid {
+  max-width: 1050px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.detail {
+  text-align: center;
+  padding: 48px 24px;
+  transition: background .5s var(--ease);
+}
+
+.detail + .detail {
+  border-left: 1px solid var(--line);
+}
+
+.detail:hover {
+  background: #f8f1e5;
+}
+
+.detail-icon {
+  color: var(--gold);
+  font-family: var(--serif);
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.detail h3 {
+  font-family: var(--serif);
+  font-size: 1.65rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.detail p {
+  color: var(--muted);
+  font-size: .77rem;
+  line-height: 1.9;
+}
+
+/* ---------- RSVP area ---------- */
+
+.rsvp-section {
+  background:
+    radial-gradient(ellipse at 10% 15%, rgba(185,154,97,.10), transparent 40%),
+    radial-gradient(ellipse at 90% 85%, rgba(87,29,43,.07), transparent 40%),
+    var(--ivory);
+}
+
+.rsvp-card {
+  position: relative;
+  max-width: 820px;
+  margin: auto;
+  background: var(--paper);
+  padding: clamp(32px, 7vw, 80px);
+  border: 1px solid var(--line);
+  box-shadow:
+    0 35px 90px rgba(55, 36, 24, .07),
+    0 5px 15px rgba(55, 36, 24, .03);
+}
+
+.rsvp-card::before {
+  content: "";
+  position: absolute;
+  inset: 10px;
+  border: 1px solid rgba(185,154,97,.25);
+  pointer-events: none;
+}
+
+.rsvp-card > * {
+  position: relative;
+}
+
+.rsvp-intro {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.rsvp-intro h2 {
+  font-family: var(--display);
+  font-size: clamp(3rem, 6vw, 4.8rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin: 16px 0;
+}
+
+.rsvp-intro p {
+  color: var(--muted);
+  font-size: .83rem;
+  line-height: 1.9;
+}
+
+/* Form fields */
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px 24px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  min-width: 0;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label,
+.field-label {
+  text-transform: uppercase;
+  letter-spacing: .16em;
+  font-size: .62rem;
+  font-weight: 600;
+  color: var(--wine);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 16px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  outline: none;
+  color: var(--ink);
+  font-size: .88rem;
+  transition: border-color .35s, padding .35s;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--gold);
+  padding-left: 8px;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #b5aaa0;
+  font-weight: 300;
+}
+
+.field select {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23b99a61' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+/* Custom attendance cards */
+
+.attendance-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.attendance-option {
+  position: relative;
+}
+
+.attendance-option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.attendance-option label {
+  min-height: 100px;
+  border: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .35s var(--ease);
+  padding: 16px;
+  color: var(--ink);
+  letter-spacing: .05em;
+}
+
+.attendance-option label strong {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.attendance-option label span {
+  font-size: .65rem;
+  color: var(--muted);
+  letter-spacing: .03em;
+  text-transform: none;
+  font-weight: 300;
+}
+
+.attendance-option label:hover {
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.attendance-option input:checked + label {
+  border-color: var(--wine);
+  background: #f8f0e9;
+  box-shadow: inset 0 0 0 1px var(--wine);
+}
+
+.attendance-option input:focus-visible + label {
+  outline: 2px solid var(--gold);
+  outline-offset: 4px;
+}
+
+.conditional-field {
+  display: none;
+  animation: reveal .4s var(--ease) both;
+}
+
+.conditional-field.visible {
+  display: flex;
+}
+
+/* Dietary / consent */
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: .75rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.checkbox-row input {
+  margin-top: 4px;
+  accent-color: var(--wine);
+}
+
+/* Submit */
+
+.submit-wrap {
+  margin-top: 42px;
+  text-align: center;
+}
+
+.submit-btn {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--wine);
+  background: var(--wine);
+  color: var(--ivory);
+  padding: 21px 42px;
+  min-width: 250px;
+  text-transform: uppercase;
+  letter-spacing: .22em;
+  font-size: .65rem;
+  font-weight: 500;
+  transition: color .5s, background .5s;
+}
+
+.submit-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-101%);
+  transition: transform .6s var(--ease);
+  z-index: 0;
+}
+
+.submit-btn span {
+  position: relative;
+  z-index: 1;
+}
+
+.submit-btn:hover {
+  color: var(--wine-dark);
+}
+
+.submit-btn:hover::before {
+  transform: translateX(0);
+}
+
+.submit-btn:disabled {
+  opacity: .7;
+  cursor: wait;
+}
+
+.form-note {
+  font-size: .65rem;
+  color: var(--muted);
+  margin-top: 20px;
+  letter-spacing: .04em;
+}
+
+/* ---------- Success message ---------- */
+
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 40px 0;
+  animation: reveal .8s var(--ease) both;
+}
+
+.success-message.visible {
+  display: block;
+}
+
+.success-message .ornament {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--gold);
+}
+
+.success-message h2 {
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 400;
+  margin: 18px 0;
+}
+
+.success-message p {
+  color: var(--muted);
+  line-height: 1.9;
+  font-size: .88rem;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  background: var(--wine-dark);
+  color: var(--ivory);
+  text-align: center;
+  padding: 65px 24px;
+}
+
+.footer-monogram {
+  font-family: var(--display);
+  font-size: 3rem;
+  color: var(--gold-light);
+  letter-spacing: .12em;
+}
+
+.footer p {
+  margin-top: 16px;
+  color: rgba(255,255,255,.6);
+  text-transform: uppercase;
+  letter-spacing: .2em;
+  font-size: .58rem;
+}
+
+.footer .footer-line {
+  height: 1px;
+  width: 55px;
+  background: var(--gold);
+  margin: 28px auto;
+}
+
+/* ---------- Animations ---------- */
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: .35; transform: scaleY(.8); }
+  50% { opacity: 1; transform: scaleY(1); }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 700px) {
+  .hero {
+    min-height: 680px;
+    background-position: 55% center;
+  }
+
+  .hero::before {
+    inset: 12px;
+  }
+
+  .hero::after {
+    inset: 19px;
+  }
+
+  .navbar {
+    padding: 25px 8%;
+  }
+
+  .brand {
+    font-size: 1.1rem;
+  }
+
+  .nav-caption {
+    font-size: .53rem;
+    letter-spacing: .12em;
+  }
+
+  .section {
+    padding: 85px 6%;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail {
+    padding: 35px 20px;
+  }
+
+  .detail + .detail {
+    border-left: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .rsvp-card {
+    padding: 45px 25px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .attendance-options {
+    gap: 8px;
+  }
+
+  .attendance-option label {
+    padding: 12px 6px;
+  }
+
+  .submit-btn {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="hero" id="home">
+  <nav class="navbar">
+    <a href="#home" class="brand">G<span style="color:var(--gold-light)">.</span>J</a>
+    <span class="nav-caption">You are very welcome</span>
+  </nav>
+
+  <div class="hero-content">
+    <p class="eyebrow">to come to my home</p>
+    <h1>
+      Venez 
+      <span>visiter la maison</span>
+    </h1>
+    <div class="hero-divider">✳</div>
+    <p class="hero-date">Anytime</p>
+    <p class="hero-location">9 Mayorswell Field · Durham, England</p>
+  </div>
+
+  <a href="#rsvp" class="scroll-cue">
+    Your presence is requested
+  </a>
+</header>
+
+<section class="section details">
+  <div class="section-heading">
+    <span class="kicker">The pleasure of your company</span>
+   
+    </article>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="footer-monogram">G · J</div>
+  <div class="footer-line"></div>
+  <p>Made with AI</p>
+</footer>
+
+<script>
+const form = document.getElementById("rsvpForm");
+const guestsField = document.getElementById("guestsField");
+const mealField = document.getElementById("mealField");
+const guestsSelect = document.getElementById("guests");
+const mealSelect = document.getElementById("meal");
+const submitBtn = document.getElementById("submitBtn");
+
+function updateAttendance() {
+  const attending = document.querySelector(
+    'input[name="attendance"]:checked'
+  )?.value === "Joyfully accepts";
+
+  guestsField.classList.toggle("visible", attending);
+  mealField.classList.toggle("visible", attending);
+
+  guestsSelect.required = attending;
+  mealSelect.required = attending;
+}
+
+document.querySelectorAll('input[name="attendance"]').forEach(input => {
+  input.addEventListener("change", updateAttendance);
+});
+
+form.addEventListener("submit", async event => {
+  event.preventDefault();
+
+  const data = Object.fromEntries(new FormData(form).entries());
+  const attending = data.attendance === "Joyfully accepts";
+
+  /*
+    DEMO MODE:
+    This page does not yet send responses to a server.
+    Connect a form endpoint below to save real RSVPs.
+  */
+
+  console.log("RSVP submission:", data);
+
+  form.style.display = "none";
+  document.getElementById("formIntro").style.display = "none";
+
+  document.getElementById("successTitle").textContent = attending
+    ? "How utterly delightful."
+    : "You shall be dearly missed.";
+
+  document.getElementById("successText").textContent = attending
+    ? `We look forward to celebrating with you, ${data.firstName}. `
+      + "Consider your place at the table reserved — pending confirmation."
+    : `Thank you for letting us know, ${data.firstName}. `
+      + "You shall be in our thoughts on this most special day.";
+
+  document.getElementById("successMessage").classList.add("visible");
+});
+</script>
+
+</body>
+</html>
